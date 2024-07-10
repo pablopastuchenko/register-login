@@ -5,7 +5,6 @@ import Google from "next-auth/providers/google";
 import connectDB from "./lib/db";
 import { User } from "./models/User";
 import { compare } from "bcryptjs";
-require("dotenv").config()
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
