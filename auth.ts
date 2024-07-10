@@ -69,4 +69,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         signIn: "/login",
     },
 
+    callbacks: {
+        async session({session, token}) {
+            if(token?.sub && token?.role) {
+                session.user.id = token.sub
+                session.user.role = token.roke
+            }
+            return session
+        }
+    }
+
 })

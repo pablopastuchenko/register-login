@@ -2,12 +2,13 @@ import { login } from "@/action/user";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const Login = async () => {
 
+  const session = await auth()
 
   return (
     <div className="mt-10 max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white border border-[#121212]  dark:bg-black">
