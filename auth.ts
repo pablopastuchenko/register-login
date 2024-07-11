@@ -76,7 +76,43 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 session.user.role = token.role
             }
             return session
-        }
-    }
+        },
+
+        async jwt({token, user}){
+          if (user) {
+            token.role = user.role
+          }
+          return token
+        },
+
+        signIn: async({user, account}) => {
+          if (account?.provider === 'google') {
+            try {
+              const {email, name, image, id} = user
+              await connectDB()
+              const alreadyUser = await User.findOne({email})
+
+              if (!alreadyUser) {
+                await User.create({email, name, image, authProviderId: id})
+              } else {
+                return true;
+              }
+
+
+            } catch (error) {
+              throw new Error('Error while creating user')
+            }
+          }
+
+          if (account?.provider === 'credentials') {
+            return true
+          } else {
+            return false
+          }
+
+
+        },
+
+    },
 
 })

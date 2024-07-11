@@ -5,9 +5,12 @@ import { User } from "@/models/User";
 import { redirect } from "next/navigation";
 import { hash } from "bcryptjs";
 import { CredentialsSignin } from "next-auth";
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
+import { getSession } from "@/lib/getSession";
 
 const login = async (formData: FormData) => {
+
+  
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
